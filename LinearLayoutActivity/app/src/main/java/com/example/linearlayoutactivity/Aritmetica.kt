@@ -7,10 +7,10 @@ class Aritmetica {
     fun resta(numeroUno: Float, numeroDos: Float) : Float {
         return numeroUno - numeroDos
     }
-    fun multiplicacion(numeroUno: Float, numeroDos: Float) : Float {
+    fun mul(numeroUno: Float, numeroDos: Float) : Float {
         return numeroUno * numeroDos
     }
-    fun division(numeroUno: Float, numeroDos: Float) : Float {
+    fun div(numeroUno: Float, numeroDos: Float) : Float {
         return numeroUno / numeroDos
     }
 
