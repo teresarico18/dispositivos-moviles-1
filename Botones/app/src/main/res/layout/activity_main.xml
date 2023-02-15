@@ -15,6 +15,7 @@
         android:text="@string/phrase"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="#FFFFFF"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
@@ -39,8 +40,8 @@
         android:ems="10"
         android:hint="Aquí escribe tu frase"
         android:inputType="textPersonName"
-        android:text="Name"
-        android:textColor="#00BCD4"
+        android:text="Frase"
+        android:textColor="#F8F8F8"
         android:textColorHint="#64CEDC"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -52,7 +53,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:text="Button"
+        android:text="Siguiente"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
