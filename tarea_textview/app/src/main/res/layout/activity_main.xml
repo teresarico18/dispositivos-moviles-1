@@ -5,20 +5,8 @@
     android:id="@+id/background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#00FFFFFF"
+    android:background="@drawable/star_wars_bg"
     tools:context=".MainActivity">
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="800dp"
-        android:layout_height="543dp"
-        android:rotation="90"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.498"
-        app:srcCompat="@drawable/star_wars_bg" />
 
     <TextView
         android:id="@+id/textView"
@@ -27,13 +15,14 @@
         android:layout_marginStart="88dp"
         android:layout_marginEnd="48dp"
         android:layout_marginBottom="16dp"
+        android:fontFamily="@font/starjedi"
         android:paddingStart="20dp"
         android:paddingEnd="48dp"
         android:rotationX="30"
-        android:text="La República Galáctica está sumida en disturbios. Hay protestas contra la tributación de las rutas comerciales a sistemas estelares. Esperando resolver el problema con un bloqueo de mortíferos cruceros, la avariciosa Federación de Comercio ha detenido todos los envios al pequeño planeta de Naboo. Mientras el Congreso de la República debate sin fin esta alarmante cadena de acontecimientos, el Canciller Supremo ha despachado en secreto a dos Caballeros Jedi, los guardianes de la paz y la justicia en la galaxia, a resolver el conflicto…"
+        android:text="@string/intro"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="#FFEB3B"
-        android:textSize="19sp"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

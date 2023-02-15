@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">tarea_textview</string>
     <string name="title">hola</string>
+    <string name="intro">La República Galáctica está sumida en disturbios. Hay protestas contra la tributación de las rutas comerciales a sistemas estelares. Esperando resolver el problema con un bloqueo de mortíferos cruceros, la avariciosa Federación de Comercio ha detenido todos los envios al pequeño planeta de Naboo. Mientras el Congreso de la República debate sin fin esta alarmante cadena de acontecimientos, el Canciller Supremo ha despachado en secreto a dos Caballeros Jedi, los guardianes de la paz y la justicia en la galaxia, a resolver el conflicto…</string>
 </resources>
