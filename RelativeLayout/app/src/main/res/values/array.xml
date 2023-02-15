@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="programas">
+        <item>iCarly</item>
+        <item>Zoey 101</item>
+        <item>Drake & Josh</item>
+    </string-array>
+</resources>
