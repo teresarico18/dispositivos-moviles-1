@@ -15,29 +15,23 @@
         app:layout_boxedEdges="all">
 
         <TextView
-            android:id="@+id/yvInstruction"
+            android:id="@+id/tvInstruction"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/instruction" />
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="@dimen/inner_frame_layout_padding"
-        app:layout_boxedEdges="all">
+            android:text="@string/instruction"
+            android:layout_gravity="center|top"/>
 
         <Spinner
-            android:id="@+id/sp_num1"
-            android:layout_gravity="center|start"
+            android:id="@+id/spNum1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|left" />
 
         <Spinner
-            android:id="@+id/sp_num2"
+            android:id="@+id/spNum2"
             android:layout_gravity="center|end"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-    </FrameLayout>
 
         <Button
             android:id="@+id/bn_calcular"
