@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun cambiarMensaje(tipo: Int) {
         if(tipo == 1){
-            tvGreeting!!.text = getString(R.string.despedida)
+            tvGreeting!!.text = getString(R.string.bienvenida)
         }else{
             Toast.makeText(this, "El tipo es $tipo", Toast.LENGTH_LONG).show()
         }
