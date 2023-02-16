@@ -7,7 +7,7 @@
     tools:context=".MainActivity">
 
     <ImageView
-        android:id="@+id/tvContinuara"
+        android:id="@+id/ivContinuara"
         app:srcCompat="@drawable/pic1"
         android:scaleType="centerCrop"
         android:layout_width="180dp"
@@ -17,7 +17,7 @@
         />
 
     <TextView
-        android:id="@+id/tvCanal"
+        android:id="@+id/tvDespedida"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
@@ -25,32 +25,44 @@
         android:textSize="24sp" />
 
     <TextView
+        android:id="@+id/tvCanal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tvCanal"
-        android:layout_toStartOf="@id/tvContinuara"
+        android:layout_below="@id/tvDespedida"
+        android:layout_toStartOf="@id/ivContinuara"
         android:text="Canal 5"
         android:textSize="20sp" />
 
     <Button
+        android:id="@+id/bnCambiar"
+        android:background="@drawable/redondo"
         android:text="Cambiar"
-        android:layout_above="@id/tvCanal"
+        android:layout_above="@id/tvDespedida"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:layout_alignParentEnd="true"
-        android:id="@+id/bnCambiar"
         />
 
     <EditText
+        android:id="@+id/etCambiar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/tvCanal"
+        android:layout_above="@id/tvDespedida"
         android:layout_toStartOf="@id/bnCambiar"
         android:layout_alignTop="@id/bnCambiar"
         android:layout_alignBottom="@id/bnCambiar"
         />
+
+    <Spinner
+        android:entries="@array/programas"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/spProgramas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
 
 
 </RelativeLayout>
