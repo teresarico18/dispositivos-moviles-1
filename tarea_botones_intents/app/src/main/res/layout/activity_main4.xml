@@ -7,7 +7,7 @@
     tools:context=".MainActivity3">
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/tvAprobado"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Felicidades aprobaste la materia con"
