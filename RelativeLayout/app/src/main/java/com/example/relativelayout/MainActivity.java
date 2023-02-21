@@ -2,6 +2,7 @@ package com.example.relativelayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,6 +17,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private ImageView ivContinuara;
+    private String programa;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,12 +40,21 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 tvDespedida.setText(texto);
             }
         });
+        ivContinuara.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(MainActivity.this, DatosActivity.class);
+                i.putExtra("Canal", tvDespedida.getText().toString());
+                i.putExtra("Programa", programa);
+                startActivity(i);
+            }
+        });
     }
 
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int posicion, long fila) {
-        String programa = adapterView.getItemAtPosition(posicion).toString();
+        programa = adapterView.getItemAtPosition(posicion).toString();
         Snackbar.make(adapterView, "Programa seleccionado "+programa, Snackbar.LENGTH_LONG).show();
 
         if (posicion == 0){
@@ -59,4 +70,5 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public void onNothingSelected(AdapterView<?> adapterView) {
 
     }
+
 }
