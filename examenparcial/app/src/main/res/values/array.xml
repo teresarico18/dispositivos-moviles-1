@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="horarios">
+        <item>15:00 SUB</item>
+        <item>16:00 ESP</item>
+        <item>17:00 3D ESP</item>
+        <item>18:00 SUB</item>
+        <item>19:00 ESP</item>
+        <item>20:00 3D ESP</item>
+    </string-array>
+</resources>
