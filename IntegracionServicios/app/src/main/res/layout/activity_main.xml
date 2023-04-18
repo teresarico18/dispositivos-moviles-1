@@ -16,7 +16,9 @@
             android:id="@+id/tvBienvenido"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Bienvenido" />
+            android:layout_marginBottom="20dp"
+            android:text="Bienvenido"
+            android:textSize="24sp" />
 
 
         <EditText
@@ -25,19 +27,47 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Su nombre por favor" />
+            android:text="Nombre"
+            android:textSize="16sp" />
+        <EditText
+            android:id="@+id/etEdad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Edad"
+            android:textSize="16sp" />
+        <EditText
+            android:id="@+id/etAltura"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Altura"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/etDinero"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Dinero en monedero"
+            android:textSize="16sp" />
 
         <Switch
             android:id="@+id/switchPreferencias"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
             android:text="Usar preferencias" />
 
         <Button
             android:id="@+id/bnGuardar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="40dp"
             android:text="Guardar" />
 
 

@@ -1,6 +1,7 @@
 package com.example.integracionservicios
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -9,22 +10,28 @@ import android.os.Bundle
 import android.os.PersistableBundle
 import android.text.TextUtils
 import android.util.Log
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Switch
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.ActionBar
 
 class MainActivity : AppCompatActivity() {
     private lateinit var tvBienvenido: TextView
     private lateinit var etNombre: EditText
+    private lateinit var etEdad: EditText
+    private lateinit var etAltura: EditText
+    private lateinit var etDinero: EditText
     private lateinit var bnGuardar: Button
     private lateinit var switchPreferencias: Switch
     private val NOMBRE_KEY = "nombre"
+    private val EDAD_KEY = 0
+    private val ALTURA_KEY = 0F
+    private val DINERO_KEY = 0F
     private val SWITCH_KEY = "switch_estado"
     private val NOMBRE_INSTANCIA = "nombre_instancia"
     private var nombre: String = ""
-
+    private var edad: Int = 0
+    private var altura: Float = 0F
+    private var dinero: Float = 0F
+    private var isChecked: Boolean = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d("PREFERENCIAS", "onCreate")
@@ -39,6 +46,13 @@ class MainActivity : AppCompatActivity() {
         inicializarVistas()
 
         Log.d("PREFERENCIAS", savedInstanceState?.getString(NOMBRE_KEY).toString())
+
+        val switchPreferencias = findViewById<Switch>(R.id.switchPreferencias)
+        switchPreferencias.setOnCheckedChangeListener { compoundButton: CompoundButton, b: Boolean ->
+            isChecked = !isChecked
+            Log.d("Datos", "Datos recibidos con éxito fue $isChecked")
+        }
+
 //nombre = savedInstanceState?.getString(NOMBRE_KEY).toString()
     }
 
@@ -89,16 +103,46 @@ class MainActivity : AppCompatActivity() {
     private fun inicializarVistas() {
         tvBienvenido = findViewById(R.id.tvBienvenido)
         etNombre = findViewById(R.id.etNombre)
+        etEdad = findViewById(R.id.etEdad)
+        etAltura = findViewById(R.id.etAltura)
+        etDinero = findViewById(R.id.etDinero)
         bnGuardar = findViewById(R.id.bnGuardar)
         switchPreferencias = findViewById(R.id.switchPreferencias)
 
+
         bnGuardar.setOnClickListener {
-            nombre = etNombre.text.toString()
-            cambiarTextoBienvenida(nombre)
-            val miSharedPreferences = getSharedPreferences("PERSISTENCIA", MODE_PRIVATE)
-            val editor = miSharedPreferences.edit()
-            editor.putString(NOMBRE_KEY, nombre)
-            editor.apply()
+            try {
+                nombre = etNombre.text.toString()
+                edad = etEdad.text.toString().toInt()
+                altura = etAltura.text.toString().toFloat()
+                dinero = etDinero.text.toString().toFloat()
+                cambiarTextoBienvenida(nombre)
+                val i = Intent(this, ListaAnimales::class.java)
+                if (isChecked){
+                    val miSharedPreferences = getSharedPreferences("PERSISTENCIA", MODE_PRIVATE)
+                    val editor = miSharedPreferences.edit()
+                    editor.putString(SWITCH_KEY, isChecked.toString())
+                    editor.putString(NOMBRE_KEY, nombre)
+                    editor.putString(EDAD_KEY.toString(), edad.toString())
+                    editor.putString(ALTURA_KEY.toString(), altura.toString())
+                    editor.putString(DINERO_KEY.toString(), dinero.toString())
+                    editor.putString(NOMBRE_KEY, nombre)
+                    editor.apply()
+                }else{
+                    val miSharedPreferences = getSharedPreferences("PERSISTENCIA", MODE_PRIVATE)
+                    val editor = miSharedPreferences.edit()
+                    editor.putString(SWITCH_KEY, isChecked.toString())
+                    editor.apply()
+                    i.putExtra("nombre", nombre)
+                    i.putExtra("edad", edad)
+                    i.putExtra("altura", altura)
+                    i.putExtra("dinero", dinero)
+                }
+                startActivity(i)
+            } catch (e: java.lang.NumberFormatException) {
+                Toast.makeText(this, "Datos incorrectos", Toast.LENGTH_LONG).show()
+            }
+
         }
 
     }
