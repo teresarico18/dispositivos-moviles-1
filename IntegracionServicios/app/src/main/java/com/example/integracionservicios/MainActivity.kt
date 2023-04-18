@@ -22,9 +22,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var bnGuardar: Button
     private lateinit var switchPreferencias: Switch
     private val NOMBRE_KEY = "nombre"
-    private val EDAD_KEY = 0
-    private val ALTURA_KEY = 0F
-    private val DINERO_KEY = 0F
+    private val EDAD_KEY = "edad"
+    private val ALTURA_KEY = "altura"
+    private val DINERO_KEY = "dinero"
     private val SWITCH_KEY = "switch_estado"
     private val NOMBRE_INSTANCIA = "nombre_instancia"
     private var nombre: String = ""
@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity() {
         val switchPreferencias = findViewById<Switch>(R.id.switchPreferencias)
         switchPreferencias.setOnCheckedChangeListener { compoundButton: CompoundButton, b: Boolean ->
             isChecked = !isChecked
-            Log.d("Datos", "Datos recibidos con éxito fue $isChecked")
+            Log.d("Datos", "Tus preferencias se guardan? $isChecked")
         }
 
 //nombre = savedInstanceState?.getString(NOMBRE_KEY).toString()
@@ -117,21 +117,20 @@ class MainActivity : AppCompatActivity() {
                 altura = etAltura.text.toString().toFloat()
                 dinero = etDinero.text.toString().toFloat()
                 cambiarTextoBienvenida(nombre)
-                val i = Intent(this, ListaAnimales::class.java)
+                val i = Intent(this, MainActivity3::class.java)
                 if (isChecked){
                     val miSharedPreferences = getSharedPreferences("PERSISTENCIA", MODE_PRIVATE)
                     val editor = miSharedPreferences.edit()
-                    editor.putString(SWITCH_KEY, isChecked.toString())
+                    editor.putBoolean(SWITCH_KEY, isChecked)
                     editor.putString(NOMBRE_KEY, nombre)
-                    editor.putString(EDAD_KEY.toString(), edad.toString())
-                    editor.putString(ALTURA_KEY.toString(), altura.toString())
-                    editor.putString(DINERO_KEY.toString(), dinero.toString())
-                    editor.putString(NOMBRE_KEY, nombre)
+                    editor.putInt(EDAD_KEY, edad)
+                    editor.putFloat(ALTURA_KEY, altura)
+                    editor.putFloat(DINERO_KEY, dinero)
                     editor.apply()
                 }else{
                     val miSharedPreferences = getSharedPreferences("PERSISTENCIA", MODE_PRIVATE)
                     val editor = miSharedPreferences.edit()
-                    editor.putString(SWITCH_KEY, isChecked.toString())
+                    editor.putBoolean(SWITCH_KEY, isChecked)
                     editor.apply()
                     i.putExtra("nombre", nombre)
                     i.putExtra("edad", edad)
