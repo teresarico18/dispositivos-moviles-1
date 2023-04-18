@@ -117,7 +117,7 @@ class MainActivity : AppCompatActivity() {
                 altura = etAltura.text.toString().toFloat()
                 dinero = etDinero.text.toString().toFloat()
                 cambiarTextoBienvenida(nombre)
-                val i = Intent(this, MainActivity3::class.java)
+                val i = Intent(this, ListaAnimales::class.java)
                 if (isChecked){
                     val miSharedPreferences = getSharedPreferences("PERSISTENCIA", MODE_PRIVATE)
                     val editor = miSharedPreferences.edit()
