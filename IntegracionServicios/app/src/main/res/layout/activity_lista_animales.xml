@@ -19,25 +19,40 @@
             android:id="@+id/bnCol1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="5dp"
+            android:layout_marginRight="4dp"
             android:layout_weight="1"
-            android:text="1 COL" />
+            android:text="1COL" />
 
         <Button
             android:id="@+id/bnCol2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="5dp"
+            android:layout_marginRight="4dp"
             android:layout_weight="1"
-            android:text="2 COL" />
+            android:text="2COL" />
 
         <Button
             android:id="@+id/bnCol3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="5dp"
+            android:layout_marginRight="4dp"
             android:layout_weight="1"
-            android:text="3 COL" />
+            android:text="3COL" />
+
+        <Button
+            android:id="@+id/bnVertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="4dp"
+            android:layout_weight="1"
+            android:text="VER" />
+        <Button
+            android:id="@+id/bnHorizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="4dp"
+            android:layout_weight="1"
+            android:text="HOR" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"

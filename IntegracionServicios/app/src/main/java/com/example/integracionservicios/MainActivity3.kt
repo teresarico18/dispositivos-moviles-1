@@ -26,7 +26,7 @@ class MainActivity3 : AppCompatActivity() {
 
         bnRegresar = findViewById(R.id.bnRegresar)
         bnRegresar.setOnClickListener{
-            val i = Intent(this, MainActivity::class.java)
+            val i = Intent(this, ListaAnimales::class.java)
             startActivity(i)
         }
         val miSharedPreferences = getSharedPreferences("PERSISTENCIA", MODE_PRIVATE)
