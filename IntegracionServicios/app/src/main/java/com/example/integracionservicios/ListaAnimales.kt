@@ -23,74 +23,49 @@ class ListaAnimales : AppCompatActivity() {
     private var altura: Float = 0F
     private var dinero: Float = 0F
     private var isChecked: Boolean = false
-    private var isVertical: Boolean = true
+    private var CANTIDAD_COLUMNAS = 1
+    private var ORIENTACION = GridLayoutManager.VERTICAL
+    private lateinit var administradorDeLayouts: GridLayoutManager
+    private lateinit var recycler: RecyclerView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lista_animales)
 
         val animales = FakeAnimales().getAnimales()
-        val recycler = findViewById<RecyclerView>(R.id.recyclerAnimales)
+        //val recycler = findViewById<RecyclerView>(R.id.recyclerAnimales)
+        //DECLARED BEFORE
+        recycler = findViewById<RecyclerView>(R.id.recyclerAnimales)
 
-        var CANTIDAD_COLUMNAS = 1
-        var ORIENTACION = GridLayoutManager.VERTICAL
+        //BASIC LINEAR LAYOUT FOR RECYCLER VIEW
         //val administradorDeLayouts = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        var administradorDeLayouts = GridLayoutManager(this, CANTIDAD_COLUMNAS, ORIENTACION, false)
-
+        administradorDeLayouts = GridLayoutManager(this, CANTIDAD_COLUMNAS, ORIENTACION, false)
         recycler.layoutManager = administradorDeLayouts
         recycler.adapter = AnimalesAdapter(animales, this)
-
-
 
         bnCol1 = findViewById(R.id.bnCol1)
         bnCol1.setOnClickListener{
             CANTIDAD_COLUMNAS = 1
-            administradorDeLayouts = GridLayoutManager(this, CANTIDAD_COLUMNAS, ORIENTACION, false)
-            recycler.layoutManager = administradorDeLayouts
-            Toast.makeText(this, "$CANTIDAD_COLUMNAS", Toast.LENGTH_LONG).show()
+            actualizarLayout()
         }
         bnCol2 = findViewById(R.id.bnCol2)
         bnCol2.setOnClickListener{
             CANTIDAD_COLUMNAS = 2
-            administradorDeLayouts = GridLayoutManager(this, CANTIDAD_COLUMNAS, ORIENTACION, false)
-            recycler.layoutManager = administradorDeLayouts
-            Toast.makeText(this, "$CANTIDAD_COLUMNAS", Toast.LENGTH_LONG).show()
+            actualizarLayout()
         }
         bnCol3 = findViewById(R.id.bnCol3)
         bnCol3.setOnClickListener{
             CANTIDAD_COLUMNAS = 3
-            administradorDeLayouts = GridLayoutManager(this, CANTIDAD_COLUMNAS, ORIENTACION, false)
-            recycler.layoutManager = administradorDeLayouts
-            Toast.makeText(this, "$CANTIDAD_COLUMNAS", Toast.LENGTH_LONG).show()
+            actualizarLayout()
         }
         bnVertical = findViewById(R.id.bnVertical)
         bnVertical.setOnClickListener{
             ORIENTACION = GridLayoutManager.VERTICAL
-            administradorDeLayouts = GridLayoutManager(this, CANTIDAD_COLUMNAS, ORIENTACION, false)
-            recycler.layoutManager = administradorDeLayouts
-            Toast.makeText(this, "Vertical", Toast.LENGTH_LONG).show()
+            actualizarLayout()
         }
         bnHorizontal = findViewById(R.id.bnHorizontal)
         bnHorizontal.setOnClickListener{
             ORIENTACION = GridLayoutManager.HORIZONTAL
-            administradorDeLayouts = GridLayoutManager(this, CANTIDAD_COLUMNAS, ORIENTACION, false)
-            recycler.layoutManager = administradorDeLayouts
-            Toast.makeText(this, "Horizontal", Toast.LENGTH_LONG).show()
-        }
-
-
-        val miSharedPreferences = getSharedPreferences("PERSISTENCIA", MODE_PRIVATE)
-        isChecked = miSharedPreferences.getBoolean("switch_estado", true)
-        if (!isChecked){
-            val i = intent
-            nombre = i.getStringExtra("nombre").toString()
-            edad = i.getIntExtra("edad", 0)
-            altura = intent.getFloatExtra("altura", 0F)
-            dinero = intent.getFloatExtra("dinero", 0F)
-            Log.d("Datos", isChecked.toString())
-            Log.d("Datos", nombre)
-            Log.d("Datos", edad.toString())
-            Log.d("Datos", altura.toString())
-            Log.d("Datos", dinero.toString())
+            actualizarLayout()
         }
 
         val fab: View = findViewById(R.id.fab)
@@ -104,8 +79,23 @@ class ListaAnimales : AppCompatActivity() {
             }
             startActivity(i)
         }
-
-
-
+    }
+    private fun actualizarLayout() {
+        administradorDeLayouts = GridLayoutManager(this, CANTIDAD_COLUMNAS, ORIENTACION, false)
+        recycler.layoutManager = administradorDeLayouts
     }
 }
+/* val miSharedPreferences = getSharedPreferences("PERSISTENCIA", MODE_PRIVATE)
+        isChecked = miSharedPreferences.getBoolean("switch_estado", true)
+        if (!isChecked){
+            val i = intent
+            nombre = i.getStringExtra("nombre").toString()
+            edad = i.getIntExtra("edad", 0)
+            altura = intent.getFloatExtra("altura", 0F)
+            dinero = intent.getFloatExtra("dinero", 0F)
+            Log.d("Datos", isChecked.toString())
+            Log.d("Datos", nombre)
+            Log.d("Datos", edad.toString())
+            Log.d("Datos", altura.toString())
+            Log.d("Datos", dinero.toString())
+}*/

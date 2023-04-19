@@ -29,25 +29,25 @@ class MainActivity3 : AppCompatActivity() {
             val i = Intent(this, ListaAnimales::class.java)
             startActivity(i)
         }
+
         val miSharedPreferences = getSharedPreferences("PERSISTENCIA", MODE_PRIVATE)
         isChecked = miSharedPreferences.getBoolean("switch_estado", true)
+
         if (isChecked){
-            nombre = miSharedPreferences.getString("nombre", "").toString()
+            nombre = miSharedPreferences.getString("nombre", "Nombre").toString()
             edad = miSharedPreferences.getInt("edad", 0)
             altura = miSharedPreferences.getFloat("altura", 0F)
             dinero = miSharedPreferences.getFloat("dinero", 0F)
-        } else {
+        }
+        /*else {
             val i = intent
             nombre = i.getStringExtra("nombre").toString()
             edad = i.getIntExtra("edad", 0)
             altura = intent.getFloatExtra("altura", 0F)
             dinero = intent.getFloatExtra("dinero", 0F)
-        }
-        Log.d("Datos", isChecked.toString())
+        }*/
         Log.d("Datos", nombre)
-        Log.d("Datos", edad.toString())
-        Log.d("Datos", altura.toString())
-        Log.d("Datos", dinero.toString())
+
         tvPrefNombre = findViewById(R.id.tvPrefNombre)
         tvPrefNombre.setText(nombre)
         tvPrefEdad = findViewById(R.id.tvPrefEdad)

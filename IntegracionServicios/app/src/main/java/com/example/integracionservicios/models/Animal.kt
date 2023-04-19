@@ -5,5 +5,6 @@ data class Animal(
     var nombre: String,
     var precio: Float,
     var producto: String,
-    var imagen: Int
+    var imagen: Int,
+    var clasificacion: String
 )

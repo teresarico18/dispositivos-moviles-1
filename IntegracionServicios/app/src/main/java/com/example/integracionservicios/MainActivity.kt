@@ -61,8 +61,11 @@ class MainActivity : AppCompatActivity() {
         outState.putString(NOMBRE_KEY, nombre )
         outState?.run {
             putString(NOMBRE_KEY, nombre)
+            putInt(EDAD_KEY, edad)
+            putFloat(ALTURA_KEY, altura)
+            putFloat(DINERO_KEY, dinero)
         }
-// call superclass to save any view hierarchy
+        // call superclass to save any view hierarchy
         super.onSaveInstanceState(outState)
 
     }
@@ -72,10 +75,16 @@ class MainActivity : AppCompatActivity() {
         if(TextUtils.isEmpty(nombre)){
             val miSharedPreferences = getSharedPreferences("PERSISTENCIA", MODE_PRIVATE)
             nombre = miSharedPreferences.getString(NOMBRE_KEY, "").toString()
-
+            edad = miSharedPreferences.getInt(EDAD_KEY, 0)
+            altura = miSharedPreferences.getFloat(ALTURA_KEY, 0F)
+            dinero = miSharedPreferences.getFloat(DINERO_KEY, 0F)
         }
 
-        tvBienvenido.text = nombre
+        tvBienvenido.text = "Bienvenido $nombre"
+        etNombre.setText(nombre)
+        etEdad.setText(edad.toString())
+        etAltura.setText(altura.toString())
+        etDinero.setText(dinero.toString())
         super.onResume()
     }
 
@@ -132,10 +141,10 @@ class MainActivity : AppCompatActivity() {
                     val editor = miSharedPreferences.edit()
                     editor.putBoolean(SWITCH_KEY, isChecked)
                     editor.apply()
-                    i.putExtra("nombre", nombre)
-                    i.putExtra("edad", edad)
-                    i.putExtra("altura", altura)
-                    i.putExtra("dinero", dinero)
+                    //i.putExtra("nombre", nombre)
+                    //i.putExtra("edad", edad)
+                    //i.putExtra("altura", altura)
+                    //i.putExtra("dinero", dinero)
                 }
                 startActivity(i)
             } catch (e: java.lang.NumberFormatException) {
