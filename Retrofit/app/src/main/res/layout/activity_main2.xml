@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="top|center"
+    tools:context=".MainActivity2">
+
+    <TextView
+        android:id="@+id/tvLinkPerro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="¡Adopta a este lindo perrito!"
+        android:textSize="20sp"
+        tools:layout_editor_absoluteX="122dp"
+        tools:layout_editor_absoluteY="181dp" />
+
+    <ImageView
+        android:id="@+id/ivPerro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="34dp"
+        tools:layout_editor_absoluteY="23dp"
+        tools:srcCompat="@tools:sample/avatars" />
+</LinearLayout>
