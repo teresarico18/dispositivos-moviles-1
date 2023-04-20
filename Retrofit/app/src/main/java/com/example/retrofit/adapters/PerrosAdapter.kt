@@ -35,14 +35,13 @@ class PerrosAdapter(perros: List<String>?, context: Context) : RecyclerView.Adap
     }
 
     override fun onBindViewHolder(holder: ContenedorDeVista, position: Int) {
-        val perro = inner_perros?.get(position)
-        holder.tvLinkPerro.text = perro
+        val perro: String = inner_perros!!.get(position)
         //val perro: List<String> = inner_perros.get(position)
         Picasso.get().load(perro).into(holder.ivPerro);
     }
 
     override fun getItemCount(): Int {
-        TODO("Not yet implemented")
+        return inner_perros!!.size
     }
 
 

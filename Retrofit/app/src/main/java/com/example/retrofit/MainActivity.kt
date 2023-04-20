@@ -22,9 +22,6 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
     private lateinit var tvLink : TextView
     private lateinit var raza: String
-    private lateinit var recycler: RecyclerView
-    //private lateinit var perros: List<String>
-    private var perros: List<String> = emptyList()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -44,32 +41,9 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                 Toast.makeText( this@MainActivity, "No fue posible conectar a API", Toast.LENGTH_SHORT ).show() }
             })
 
-        apiCall.listaImagenesDePerrosPorRaza("beagle").enqueue(object: Callback<ImagesBreed>{
-            override fun onResponse(call: Call<ImagesBreed>, response: Response<ImagesBreed>) {
-                val dogs = response.body()?.message
-                //response.body()?.status
-                Log.d("PRUEBAS", "Status de la respuesta ${response.body()?.status}")
-                if(dogs != null){
-                    perros = dogs
-                    for (dog in dogs){
-                        Log.d("PRUEBAS", "Perro es $dog")
-                    }
-                }
-            }
-
-            override fun onFailure(call: Call<ImagesBreed>, t: Throwable) {
-                TODO("Not yet implemented")
-            }
-        })
-
         val spRazas = findViewById<Spinner>(R.id.spRazas)
         spRazas.setOnItemSelectedListener(this)
-        recycler = findViewById<RecyclerView>(R.id.recyclerPerros)
-        val administradorDeLayouts = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        recycler.layoutManager = administradorDeLayouts
-        if (perros.isNotEmpty()){
-            recycler.adapter = PerrosAdapter(perros, this)
-        }
+
     }
 
 
@@ -113,7 +87,10 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                 //response.body()?.status
                 Log.d("PERROS", "Status de la respuesta ${response.body()?.status}")
                 if(dogs != null){
-
+                    val recycler = findViewById<RecyclerView>(R.id.recyclerPerros)
+                    val administradorDeLayouts = LinearLayoutManager(this@MainActivity, LinearLayoutManager.VERTICAL, false)
+                    recycler.layoutManager = administradorDeLayouts
+                    recycler.adapter = PerrosAdapter(dogs, this@MainActivity)
                     for (dog in dogs){
                         Log.d("PERROS", "Perro es $dog")
                     }
