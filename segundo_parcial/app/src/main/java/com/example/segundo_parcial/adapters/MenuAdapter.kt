@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.segundo_parcial.R
 import com.example.segundo_parcial.models.Menu
@@ -16,14 +17,28 @@ RecyclerView.Adapter<MenuAdapter.ContenedorDeVista> (){
     var inner_context: Context = context
 
     inner class ContenedorDeVista(view: View) :
-        RecyclerView.ViewHolder(view){
+        RecyclerView.ViewHolder(view), View.OnClickListener {
             val tvTexto : TextView
             val ivImagen : ImageView
 
             init{
                 tvTexto = view.findViewById(R.id.tvTexto)
                 ivImagen = view.findViewById(R.id.ivImagen)
+                ivImagen.setOnClickListener(this)
             }
+
+        override fun onClick(p0: View?) {
+            val menu: Menu = inner_menus.get(adapterPosition)
+            if (menu.titulo == "Gatos"){
+                Toast.makeText(inner_context, "Gatos", Toast.LENGTH_LONG).show()
+            }else if (menu.titulo == "Perfil"){
+                Toast.makeText(inner_context, "Perfil", Toast.LENGTH_LONG).show()
+            }else if (menu.titulo == "Configurar"){
+                Toast.makeText(inner_context, "Configurar", Toast.LENGTH_LONG).show()
+            }else if (menu.titulo == "Cerrar"){
+                Toast.makeText(inner_context, "Cerrar", Toast.LENGTH_LONG).show()
+            }
+        }
 
     }
 
