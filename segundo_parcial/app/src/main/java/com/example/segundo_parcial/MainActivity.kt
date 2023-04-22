@@ -1,5 +1,8 @@
 package com.example.segundo_parcial
 
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -33,8 +36,21 @@ class MainActivity : AppCompatActivity() {
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.option_menu) {
-            Toast.makeText(this, "Click en wifi", Toast.LENGTH_SHORT).show()
+            val isConnected = connectToInternet()
+            Log.d("DATOS", isConnected.toString())
+            if(isConnected){
+                Toast.makeText(this, "Tienes internet", Toast.LENGTH_SHORT).show()
+            }else{
+                Toast.makeText(this, "No tienes internet", Toast.LENGTH_SHORT).show()
+            }
+
         }
         return super.onOptionsItemSelected(item)
+    }
+    fun connectToInternet(): Boolean {
+        val cm = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
+        val isConnected: Boolean = activeNetwork?.isConnectedOrConnecting == true
+        return isConnected
     }
 }

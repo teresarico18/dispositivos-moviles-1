@@ -1,13 +1,18 @@
 package com.example.segundo_parcial.adapters
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.example.segundo_parcial.MainActivity
+import com.example.segundo_parcial.MainActivity3
 import com.example.segundo_parcial.R
 import com.example.segundo_parcial.models.Menu
 
@@ -28,15 +33,20 @@ RecyclerView.Adapter<MenuAdapter.ContenedorDeVista> (){
             }
 
         override fun onClick(p0: View?) {
-            val menu: Menu = inner_menus.get(adapterPosition)
-            if (menu.titulo == "Gatos"){
-                Toast.makeText(inner_context, "Gatos", Toast.LENGTH_LONG).show()
-            }else if (menu.titulo == "Perfil"){
-                Toast.makeText(inner_context, "Perfil", Toast.LENGTH_LONG).show()
-            }else if (menu.titulo == "Configurar"){
-                Toast.makeText(inner_context, "Configurar", Toast.LENGTH_LONG).show()
-            }else if (menu.titulo == "Cerrar"){
-                Toast.makeText(inner_context, "Cerrar", Toast.LENGTH_LONG).show()
+            if(adapterPosition>=0) {
+                val menu: Menu = inner_menus.get(adapterPosition)
+                if (menu.titulo == "Gatos"){
+                    Toast.makeText(inner_context, "Gatos", Toast.LENGTH_LONG).show()
+                }else if (menu.titulo == "Perfil"){
+                    val intent = Intent(inner_context, MainActivity3::class.java)
+                    startActivity(inner_context, intent, null)
+                    Toast.makeText(inner_context, "Perfil", Toast.LENGTH_LONG).show()
+                }else if (menu.titulo == "Configurar"){
+                    Toast.makeText(inner_context, "Configurar", Toast.LENGTH_LONG).show()
+                }else if (menu.titulo == "Cerrar"){
+                    (inner_context as Activity).finish()
+                    Toast.makeText(inner_context, "Cerraste la aplicación", Toast.LENGTH_LONG).show()
+                }
             }
         }
 
@@ -57,6 +67,7 @@ RecyclerView.Adapter<MenuAdapter.ContenedorDeVista> (){
 
         holder.tvTexto.text = menu.titulo
         holder.ivImagen.setImageResource(menu.imagen)
+
     }
 
 }
