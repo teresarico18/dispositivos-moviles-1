@@ -9,20 +9,20 @@ import android.database.sqlite.SQLiteQueryBuilder
 
 class ManejadorBaseDatos {
 
-    val nombreBaseDatos = "MisJuegos"
-    val tablaJuegos = "juegos"
+    val nombreBaseDatos = "MisAlbumes"
+    val tablaAlbumes = "albumes"
     val columnaID = "id"
-    val columnaNombreJuego = "nombre"
+    val columnaNombreAlbum = "nombre"
     val columnaPrecio = "precio"
-    val columnaConsola = "consola"
+    val columnaGenero = "genero"
 
     val versionDB = 1
 
-    val creacionTablaJuegos = "CREATE TABLE IF NOT EXISTS "+tablaJuegos +
+    val creacionTablaAlbumes = "CREATE TABLE IF NOT EXISTS "+tablaAlbumes +
             "(  " + columnaID + " INTEGER PRIMARY KEY AUTOINCREMENT," + //nombre columna y tipo de dato
-            "  " + columnaNombreJuego + " TEXT NOT NULL," +
+            "  " + columnaNombreAlbum + " TEXT NOT NULL," +
             "  " + columnaPrecio + " REAL," +
-            "  " + columnaConsola + " TEXT)"
+            "  " + columnaGenero + " TEXT)"
 
     var misQuerys: SQLiteDatabase
 
@@ -36,33 +36,33 @@ class ManejadorBaseDatos {
         override fun onCreate(p0: SQLiteDatabase?) {
            //aqui crearmos nuestras tablas de la db
             if (p0 != null) {
-                p0.execSQL(creacionTablaJuegos)
+                p0.execSQL(creacionTablaAlbumes)
             }//queries de creación
         }
 
         override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) {
           //para realizar migraciones
-            p0?.execSQL("DROP TABLE IF EXISTS "+tablaJuegos)
+            p0?.execSQL("DROP TABLE IF EXISTS "+tablaAlbumes)
         }
     }
 
     fun insertar(values: ContentValues): Long{
-        return misQuerys.insert(tablaJuegos, null, values)
+        return misQuerys.insert(tablaAlbumes, null, values)
     }
 
     fun actualizar(values:ContentValues, clausulaWhere: String, argumentosWhere: Array<String>): Int{
-        return misQuerys.update(tablaJuegos,values,clausulaWhere, argumentosWhere )
+        return misQuerys.update(tablaAlbumes,values,clausulaWhere, argumentosWhere )
     }
 
     fun eliminar( clausulaWhere: String, argumentosWhere: Array<String>): Int {
-        return misQuerys.delete(tablaJuegos, clausulaWhere, argumentosWhere)
+        return misQuerys.delete(tablaAlbumes, clausulaWhere, argumentosWhere)
     }
     fun seleccionar(columnasATraer: Array<String>, condiciones: String, argumentos: Array<String>, ordenarPor: String ): Cursor {
         val groupBy:String? = null
         val having:String? = null
        // val consulta = SQLiteQueryBuilder()
-       // consulta.tables = tablaJuegos
-        val cursor =  misQuerys.query(tablaJuegos, columnasATraer,condiciones,argumentos, groupBy, having, ordenarPor)
+       // consulta.tables = tablaAlbumes
+        val cursor =  misQuerys.query(tablaAlbumes, columnasATraer,condiciones,argumentos, groupBy, having, ordenarPor)
         return cursor
     }
 
@@ -70,8 +70,8 @@ class ManejadorBaseDatos {
         val groupBy:String? = null
         val having:String? = null
         // val consulta = SQLiteQueryBuilder()
-        // consulta.tables = tablaJuegos
-        val cursor =  misQuerys.query(tablaJuegos, columnasATraer,null,null, groupBy, having, ordenarPor)
+        // consulta.tables = tablaAlbumes
+        val cursor =  misQuerys.query(tablaAlbumes, columnasATraer,null,null, groupBy, having, ordenarPor)
         return cursor
     }
 

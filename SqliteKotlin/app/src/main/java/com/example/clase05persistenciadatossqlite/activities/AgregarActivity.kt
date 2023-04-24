@@ -19,63 +19,63 @@ import com.google.android.material.snackbar.Snackbar
 
 class AgregarActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     private  lateinit var fabAgregar: FloatingActionButton
-    private  lateinit var etJuego: EditText
+    private  lateinit var etAlbum: EditText
     private  lateinit var etPrecio: EditText
-    private  lateinit var spConsola: Spinner
-    private val consolas = arrayOf("Xbox", "Nintendo", "Playstation", "MultiPlataforma", "P.C")
-    private var consolaSeleccionada: String = ""
-    private  lateinit var tvJuego: TextView
+    private  lateinit var spGenero: Spinner
+    private val generos = arrayOf("Pop", "Rock", "Soul", "R&B", "Indie")
+    private var generoSeleccionado: String = ""
+    private  lateinit var tvAlbum: TextView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_agregar)
         inicializarVistas()
 
-        val adapter = ArrayAdapter(this,android.R.layout.simple_spinner_item, consolas)
+        val adapter = ArrayAdapter(this,android.R.layout.simple_spinner_item, generos)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
-        spConsola.adapter = adapter
-        spConsola.onItemSelectedListener = this
+        spGenero.adapter = adapter
+        spGenero.onItemSelectedListener = this
         fabAgregar.setOnClickListener{
-            insertarJuego( etJuego.text.toString(),  etPrecio.text.toString().toFloat(),consolaSeleccionada)
+            insertarAlbum( etAlbum.text.toString(),  etPrecio.text.toString().toFloat(), generoSeleccionado)
         }
     }
 
     val columnaID = "id"
-    val columnaNombreJuego = "nombre"
+    val columnaNombreAlbum = "nombre"
     val columnaPrecio = "precio"
-    val columnaConsola = "consola"
+    val columnaGenero = "genero"
     var id: Int = 0
-    private fun insertarJuego(nombreJuego: String, precio: Float, consola: String){
-       if(!TextUtils.isEmpty(consola)) {
+    private fun insertarAlbum(nombreAlbum: String, precio: Float, genero: String){
+       if(!TextUtils.isEmpty(genero)) {
            val baseDatos = ManejadorBaseDatos(this)
-           //  val columnas = arrayOf(columnaID, columnaNombreJuego, columnaPrecio, columnaConsola)
+           //  val columnas = arrayOf(columnaID, columnaNombreAlbum, columnaPrecio, columnaGenero)
            val contenido = ContentValues()
-           contenido.put(columnaNombreJuego, nombreJuego)
+           contenido.put(columnaNombreAlbum, nombreAlbum)
            contenido.put(columnaPrecio, precio)
-           contenido.put(columnaConsola, consola)
+           contenido.put(columnaGenero, genero)
            //guardar imagen
-            id = baseDatos.insertar(contenido).toInt()
+           id = baseDatos.insertar(contenido).toInt()
            if (id > 0) {
-               Toast.makeText(this, "juego " + nombreJuego + " agregado", Toast.LENGTH_LONG).show()
+               Toast.makeText(this, "Album " + nombreAlbum + " agregado", Toast.LENGTH_LONG).show()
                finish()
            } else
-               Toast.makeText(this, "Ups no se pudo guardar el juego", Toast.LENGTH_LONG).show()
+               Toast.makeText(this, "Ups no se pudo guardar el album", Toast.LENGTH_LONG).show()
            baseDatos.cerrarConexion()
        }else{
-           Snackbar.make(tvJuego,"Favor seleccionar una consola", 0).show()
+           Snackbar.make(tvAlbum,"Favor seleccionar un género", 0).show()
        }
     }
 
     private fun inicializarVistas(){
-        etJuego = findViewById(R.id.etJuego)
+        etAlbum = findViewById(R.id.etAlbum)
         fabAgregar = findViewById(R.id.fabAgregar)
         etPrecio = findViewById(R.id.etPrecio)
-        spConsola = findViewById(R.id.spConsola)
-        tvJuego = findViewById(R.id.tvJuego)
+        spGenero = findViewById(R.id.spGenero)
+        tvAlbum = findViewById(R.id.tvAlbum)
     }
 
     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, id: Long) {
-        consolaSeleccionada = consolas[position]
+        generoSeleccionado = generos[position]
     }
 
     override fun onNothingSelected(p0: AdapterView<*>?) {

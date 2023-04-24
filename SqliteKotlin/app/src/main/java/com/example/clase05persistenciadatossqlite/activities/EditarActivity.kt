@@ -5,7 +5,6 @@ import android.content.ContentValues
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
@@ -18,18 +17,18 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.example.clase05persistenciadatossqlite.R
 import com.example.clase05persistenciadatossqlite.db.ManejadorBaseDatos
-import com.example.clase05persistenciadatossqlite.modelos.Juego
+import com.example.clase05persistenciadatossqlite.modelos.Album
 import com.google.android.material.snackbar.Snackbar
 
 class EditarActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     private lateinit var bnGuardar: Button
-    private lateinit var etJuego: EditText
+    private lateinit var etAlbum: EditText
     private lateinit var etPrecio: EditText
-    private lateinit var spConsola: Spinner
-    private val consolas = arrayOf("Xbox", "Nintendo", "Playstation", "MultiPlataforma", "P.C")
-    private var consolaSeleccionada: String = ""
-    private lateinit var tvJuego: TextView
-    var juego: Juego? = null
+    private lateinit var spGenero: Spinner
+    private val generos = arrayOf("Pop", "Rock", "Soul", "R&B", "Indie")
+    private var generoSeleccionado: String = ""
+    private lateinit var tvAlbum: TextView
+    var album: Album? = null
     var id: Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,53 +39,53 @@ class EditarActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         getSupportActionBar()?.setDisplayHomeAsUpEnabled(true);
         inicializarVistas()
         id = intent.getIntExtra("id", 0)
-        buscarJuego(id)
+        buscarAlbum(id)
         poblarCampos()
     }
 
     private fun poblarCampos() {
-        etJuego.setText(juego?.nombre)
-        etPrecio.setText(juego?.precio.toString())
-        val position = consolas.indexOf(juego?.consola)
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, consolas)
+        etAlbum.setText(album?.nombre)
+        etPrecio.setText(album?.precio.toString())
+        val position = generos.indexOf(album?.genero)
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, generos)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spConsola.adapter = adapter
-        spConsola.onItemSelectedListener = this
+        spGenero.adapter = adapter
+        spGenero.onItemSelectedListener = this
         if (position >= 0) {
-            spConsola.setSelection(position)
-            consolaSeleccionada = consolas[position]
+            spGenero.setSelection(position)
+            generoSeleccionado = generos[position]
         }
     }
 
     private fun inicializarVistas() {
-        etJuego = findViewById(R.id.etJuego)
+        etAlbum = findViewById(R.id.etAlbum)
         bnGuardar = findViewById(R.id.bnGuardar)
         etPrecio = findViewById(R.id.etPrecio)
-        spConsola = findViewById(R.id.spConsola)
-        tvJuego = findViewById(R.id.tvJuego)
+        spGenero = findViewById(R.id.spGenero)
+        tvAlbum = findViewById(R.id.tvAlbum)
         bnGuardar.setOnClickListener {
             var precio_actual: Float
             precio_actual = etPrecio.text.toString().toFloat()
-            actualizarJuego(etJuego.text.toString(), precio_actual, consolaSeleccionada)
+            actualizarAlbum(etAlbum.text.toString(), precio_actual, generoSeleccionado)
         }
     }
 
-    val columnaNombreJuego = "nombre"
+    val columnaNombreAlbum = "nombre"
     val columnaPrecio = "precio"
-    val columnaConsola = "consola"
+    val columnaGenero = "genero"
 
-    private fun actualizarJuego(nombreJuego: String, precio: Float, consola: String) {
-        if (!TextUtils.isEmpty(consola)) {
+    private fun actualizarAlbum(nombreAlbum: String, precio: Float, genero: String) {
+        if (!TextUtils.isEmpty(genero)) {
             val baseDatos = ManejadorBaseDatos(this)
             val contenido = ContentValues()
-            contenido.put(columnaNombreJuego, nombreJuego)
+            contenido.put(columnaNombreAlbum, nombreAlbum)
             contenido.put(columnaPrecio, precio)
-            contenido.put(columnaConsola, consola)
+            contenido.put(columnaGenero, genero)
             if ( id > 0) {
                 val argumentosWhere = arrayOf(id.toString())
                 val id_actualizado = baseDatos.actualizar(contenido, "id = ?", argumentosWhere)
                 if (id_actualizado > 0) {
-                    Snackbar.make(etJuego, "Juego actualizado", Snackbar.LENGTH_LONG).show()
+                    Snackbar.make(etAlbum, "Album actualizado", Snackbar.LENGTH_LONG).show()
                 } else {
                     val alerta = AlertDialog.Builder(this)
                     alerta.setTitle("Atención")
@@ -112,23 +111,23 @@ class EditarActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     }
 
     @SuppressLint("Range")
-    private fun buscarJuego(idJuego: Int) {
+    private fun buscarAlbum(idAlbum: Int) {
 
-        if (idJuego > 0) {
+        if (idAlbum > 0) {
             val baseDatos = ManejadorBaseDatos(this)
-            val columnasATraer = arrayOf("id", "nombre", "precio", "consola")
+            val columnasATraer = arrayOf("id", "nombre", "precio", "genero")
             val condicion = " id = ?"
-            val argumentos = arrayOf(idJuego.toString())
+            val argumentos = arrayOf(idAlbum.toString())
             val ordenarPor = "id"
             val cursor = baseDatos.seleccionar(columnasATraer, condicion, argumentos, ordenarPor)
 
             if (cursor.moveToFirst()) {
                 do {
-                    val juego_id = cursor.getInt(cursor.getColumnIndex("id"))
+                    val album_id = cursor.getInt(cursor.getColumnIndex("id"))
                     val nombre = cursor.getString(cursor.getColumnIndex("nombre"))
                     val precio = cursor.getFloat(cursor.getColumnIndex("precio"))
-                    val consola = cursor.getString(cursor.getColumnIndex("consola"))
-                    juego = Juego(juego_id, nombre, precio, consola)
+                    val genero = cursor.getString(cursor.getColumnIndex("genero"))
+                    album = Album(album_id, nombre, precio, genero)
                 } while (cursor.moveToNext())
             }
             baseDatos.cerrarConexion()
@@ -136,7 +135,7 @@ class EditarActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     }
 
     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, p3: Long) {
-        consolaSeleccionada = consolas[position]
+        generoSeleccionado = generos[position]
     }
 
     override fun onNothingSelected(p0: AdapterView<*>?) {

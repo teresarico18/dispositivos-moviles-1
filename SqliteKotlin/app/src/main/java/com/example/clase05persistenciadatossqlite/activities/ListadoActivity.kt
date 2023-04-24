@@ -13,20 +13,24 @@ import android.view.Menu
 import android.widget.ListView
 import android.widget.SearchView
 import android.widget.Toast
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.clase05persistenciadatossqlite.R
-import com.example.clase05persistenciadatossqlite.adapters.JuegosAdapter
+import com.example.clase05persistenciadatossqlite.adapters.AlbumesAdapter
 import com.example.clase05persistenciadatossqlite.db.ManejadorBaseDatos
-import com.example.clase05persistenciadatossqlite.interfaces.juegosInterface
-import com.example.clase05persistenciadatossqlite.modelos.Juego
+import com.example.clase05persistenciadatossqlite.interfaces.albumesInterface
+import com.example.clase05persistenciadatossqlite.modelos.Album
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-class ListadoActivity : AppCompatActivity(), juegosInterface {
+class ListadoActivity : AppCompatActivity(), albumesInterface {
 
-    private lateinit var listView: ListView
-    private var listaDeJuegos = ArrayList<Juego>()
+    //private lateinit var listView: ListView
+    private lateinit var recycler: RecyclerView
+    private var listaDeAlbumes = ArrayList<Album>()
     private lateinit var fab: FloatingActionButton
     private val ORDENAR_POR_NOMBRE : String  = "nombre"
-    val columnas = arrayOf("id", "nombre","precio", "consola" )
+    val columnas = arrayOf("id", "nombre","precio", "genero" )
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_listado)
@@ -35,10 +39,11 @@ class ListadoActivity : AppCompatActivity(), juegosInterface {
     }
     override fun onResume() {
         super.onResume()
-        traerMisJuegos()
+        traerMisAlbumes()
     }
     private fun inicializarVistas(){
-        listView = findViewById(R.id.listView)
+        //listView = findViewById(R.id.listView)
+        recycler = findViewById(R.id.recyclerAlbumes)
         fab = findViewById(R.id.fab)
     }
 
@@ -56,7 +61,7 @@ class ListadoActivity : AppCompatActivity(), juegosInterface {
         searchView.setSearchableInfo(manejador.getSearchableInfo(componentName))
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(p0: String?): Boolean {
-                buscarJuego("%" + p0 + "%")
+                buscarAlbum("%" + p0 + "%")
                 Toast.makeText(applicationContext, p0, Toast.LENGTH_SHORT).show()
                 return false
             }
@@ -74,56 +79,57 @@ class ListadoActivity : AppCompatActivity(), juegosInterface {
     }
 
 
-    private fun traerMisJuegos() {
+    private fun traerMisAlbumes() {
         val baseDatos = ManejadorBaseDatos(this)
         val cursor = baseDatos.traerTodos(columnas, ORDENAR_POR_NOMBRE)
-        recorrerResultados( cursor)
+        recorrerResultados(cursor)
         baseDatos.cerrarConexion()
     }
 
     @SuppressLint("Range")
-    private fun buscarJuego(nombre: String) {
+    private fun buscarAlbum(nombre: String) {
         val baseDatos = ManejadorBaseDatos(this)
         val camposATraer = arrayOf(nombre)
         val cursor = baseDatos.seleccionar(columnas,"nombre like ?", camposATraer, ORDENAR_POR_NOMBRE)
-        recorrerResultados( cursor)
+        recorrerResultados(cursor)
         baseDatos.cerrarConexion()
     }
 
     @SuppressLint("Range")
     fun recorrerResultados(cursor : Cursor){
-        if(listaDeJuegos.size > 0)
-            listaDeJuegos.clear()
+        if(listaDeAlbumes.size > 0)
+            listaDeAlbumes.clear()
 
         if(cursor.moveToFirst()){
             do{
-                val juego_id = cursor.getInt(cursor.getColumnIndex("id"))
+                val album_id = cursor.getInt(cursor.getColumnIndex("id"))
                 val nombre = cursor.getString(cursor.getColumnIndex("nombre"))
                 val precio = cursor.getFloat(cursor.getColumnIndex("precio"))
-                val consola = cursor.getString(cursor.getColumnIndex("consola"))
-                val juego: Juego
-                juego = Juego(juego_id, nombre, precio, consola)
-                listaDeJuegos.add(juego)
+                val genero = cursor.getString(cursor.getColumnIndex("genero"))
+                val album: Album
+                album = Album(album_id, nombre, precio, genero)
+                listaDeAlbumes.add(album)
             }while(cursor.moveToNext())
         }
-        val adapter: JuegosAdapter = JuegosAdapter(this, listaDeJuegos,this)
-        listView.adapter = adapter
+        val administradorLayout = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false
+        )
 
+        recycler.layoutManager = administradorLayout
+        recycler.adapter = AlbumesAdapter( listaDeAlbumes, this, this)
     }
 
-    override fun juegoEliminado() {
-        Log.d("PRUEBAS", "juegoEliminado")
-        traerMisJuegos()
+    override fun albumEliminado() {
+        Log.d("PRUEBAS", "albumEliminado")
+        traerMisAlbumes()
     }
 
-    override fun editarJuego(juego: Juego) {
-        Log.d("PRUEBAS", "editar Juego "+juego.id)
+    override fun editarAlbum(album: Album) {
+        Log.d("PRUEBAS", "editar Album "+album.id)
         val intent = Intent(this, EditarActivity::class.java)
-        intent.putExtra("id",juego.id)
-        intent.putExtra("nombre",juego.nombre)
-        intent.putExtra("consola",juego.consola)
+        intent.putExtra("id",album.id)
+        intent.putExtra("nombre",album.nombre)
+        intent.putExtra("genero",album.genero)
         startActivity(intent)
     }
-
 
 }

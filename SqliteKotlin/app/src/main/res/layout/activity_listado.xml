@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient"
     tools:context=".activities.ListadoActivity">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -14,13 +15,18 @@
         app:srcCompat="@android:drawable/ic_menu_add"
         android:layout_margin="16dp" />
 
-    <ListView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerAlbumes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:listitem = "@layout/row_album"/>
+
+    <!--<ListView
         android:padding="6dp"
-        tools:listitem="@layout/row_juego"
+        tools:listitem="@layout/row_album"
         android:id="@+id/listView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-    </ListView>
+        android:layout_height="wrap_content"
+        </ListView>-->
 
 </FrameLayout>
